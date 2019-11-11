@@ -3,6 +3,7 @@ package org.metrarc.FIDO2Client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Client {
     private void initialAPITests(String pythonScript) throws IOException, InterruptedException {
@@ -19,41 +20,49 @@ public class Client {
         System.out.println("\nExited with error code : " + exitCode);
     }
 
-    private void register(String pythonScript, String userName, String displayName) throws IOException, InterruptedException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter PIN: ");
-        String pin = br.readLine();
+    private void register(String pythonScript, String userName, String displayName) {
+        try {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter PIN: ");
+            String pin = in.nextLine();
 
-        ProcessBuilder pb = new ProcessBuilder("python3", pythonScript, userName, displayName, pin);
-        pb.redirectErrorStream(true);
-        Process process = pb.start();
+            ProcessBuilder pb = new ProcessBuilder("python3", pythonScript, userName, displayName, pin);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            int exitCode = process.waitFor();
+            System.out.println("\nExited with error code : " + exitCode);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
-        int exitCode = process.waitFor();
-        System.out.println("\nExited with error code : " + exitCode);
     }
 
-    private void authenticate(String pythonScript, String userName, String pass, String uid) throws IOException, InterruptedException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.print("Enter PIN: ");
-        String pin = br.readLine();
+    private void authenticate(String pythonScript, String userName, String pass, String uid) {
+        try {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter PIN: ");
+            String pin = in.nextLine();
 
-        System.out.println("Touch your authenticator device if it is blinking ...");
-        ProcessBuilder pb = new ProcessBuilder("python3", pythonScript, userName, pass, uid, pin);
-        pb.redirectErrorStream(true);
-        Process process = pb.start();
+            System.out.println("Touch your authenticator device if it is blinking ...");
+            ProcessBuilder pb = new ProcessBuilder("python3", pythonScript, userName, pass, uid, pin);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println(line);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            int exitCode = process.waitFor();
+            System.out.println("\nExited with error code : " + exitCode);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
-        int exitCode = process.waitFor();
-        System.out.println("\nExited with error code : " + exitCode);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
