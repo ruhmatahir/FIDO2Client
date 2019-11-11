@@ -31,5 +31,7 @@ public class Test {
             System.out.println ("Exit: " + ssh.exitValue());
             ssh.destroy();
         } catch (Exception e) { e.printStackTrace(); }
+        String s = "bEVJZGWheX4eh-9JcjEdX_tGNub5tqDmNA7iHeKGAfwJ-jsJ27qOOtTy90noX7QL5chjfn8Rj9rEatYPze_RKg";
+        System.out.println(s.length());
     }
 }
