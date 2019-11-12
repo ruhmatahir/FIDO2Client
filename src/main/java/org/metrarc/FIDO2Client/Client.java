@@ -26,6 +26,7 @@ public class Client {
             System.out.print("Enter PIN: ");
             String pin = in.nextLine();
 
+            System.out.println("Touch your authenticator device if it is blinking ...");
             ProcessBuilder pb = new ProcessBuilder("python3", pythonScript, userName, displayName, pin);
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -65,7 +66,7 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
 //        System.out.println("Working Directory = " + System.getProperty("user.dir"));
 //
 //        ProcessBuilder pb = new ProcessBuilder("ping", "-c", "3", "google.com");
@@ -81,7 +82,7 @@ public class Client {
 
         Client client = new Client();
 //        client.initialAPITests("Initial_API_Tests.py");
-//        client.register("VCHolder_Registration.py", "ruhma@metrarc.com", "Ruhma Tahir", "1234");
-        client.authenticate("VCHolder_Authentication.py", "ruhma@metrarc.com", "password", "p46z2WUSAqwC6nqlQgEpCgvycMiWUMI2OVQeCYojGZY8XB1ITSiiyQDnnbv566kA_Ch-eejt54DDSg8_VR8_vg");
+//        client.register("VCHolder_Registration.py", "ruhma@metrarc.com", "Ruhma Tahir");
+        client.authenticate("VCHolder_Authentication.py", "ruhma@metrarc.com", "password", "m1SzKSjnUajIlOLP54G9OEqzEzXiFuiKesXNEKrlVP-8_6HvEduxrB0z-CXg963VC5AyuzOZGOVTuq8WhL-V-A");
     }
 }
